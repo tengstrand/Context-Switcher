@@ -13,7 +13,7 @@ public class Car {
     private final CarInternals internals;
     private final CarContextSwitcher contextSwitcher;
 
-    /*
+    /**
      * DO NOT USE THIS CONSTRUCTOR - use the CarFactory!
      */
     public Car(CarInternals carInternals, CarContextSwitcher carContextSwitcher) {

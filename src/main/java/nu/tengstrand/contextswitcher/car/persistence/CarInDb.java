@@ -14,7 +14,7 @@ public class CarInDb {
     private final CarContextSwitcher contextSwitcher;
     private final DbPersister dbPersister;
 
-    /*
+    /**
      * DO NOT USE THIS CONSTRUCTOR - use the CarFactory!
      */
     public CarInDb(CarInternals carInternals, CarContextSwitcher carContextSwitcher, DbPersister dbPersister) {
