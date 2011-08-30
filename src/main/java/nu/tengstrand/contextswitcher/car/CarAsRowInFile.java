@@ -43,7 +43,7 @@ public class CarAsRowInFile {
         return new CarInternals(lengthInCentimeters, name);
     }
 
-    /*
+    /**
      * DO NOT USE THIS CONSTRUCTOR - use the CarFactory!
      */
     public CarAsRowInFile(CarInternals carInternals, CarContextSwitcher carContextSwitcher, FileWriter fileWriter) {
@@ -58,16 +58,16 @@ public class CarAsRowInFile {
         rowInFile = lengthCm.substring(8-lengthCm.length()) + "," + internals.name;
     }
 
-    public void appendToFile() {
-        fileWriter.appendToFile(rowInFile);
-    }
-
     public Car asCar() {
         return contextSwitcher.asCar();
     }
 
     public CarInDb asCarInDb(DbPersister dbPersister) {
         return contextSwitcher.asCarInDb(dbPersister);
+    }
+
+    public void appendToFile() {
+        fileWriter.appendToFile(rowInFile);
     }
 
     public String toString() {
