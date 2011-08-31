@@ -1,8 +1,9 @@
-package nu.tengstrand.contextswitcher.car;
+package nu.tengstrand.contextswitcher.car.business;
 
 import nu.tengstrand.contextswitcher.FileWriter;
-import nu.tengstrand.contextswitcher.car.contextswitch.CarContextSwitcher;
-import nu.tengstrand.contextswitcher.car.contextswitch.CarInternals;
+import nu.tengstrand.contextswitcher.car.CarContextSwitcher;
+import nu.tengstrand.contextswitcher.car.CarInternals;
+import nu.tengstrand.contextswitcher.car.banking.CarAsRowInFile;
 import nu.tengstrand.contextswitcher.car.persistence.DbPersister;
 import nu.tengstrand.contextswitcher.car.persistence.CarInDb;
 

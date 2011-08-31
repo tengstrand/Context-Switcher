@@ -1,10 +1,10 @@
 package nu.tengstrand.contextswitcher.car.persistence;
 
 import nu.tengstrand.contextswitcher.FileWriter;
-import nu.tengstrand.contextswitcher.car.Car;
-import nu.tengstrand.contextswitcher.car.CarAsRowInFile;
-import nu.tengstrand.contextswitcher.car.contextswitch.CarContextSwitcher;
-import nu.tengstrand.contextswitcher.car.contextswitch.CarInternals;
+import nu.tengstrand.contextswitcher.car.CarContextSwitcher;
+import nu.tengstrand.contextswitcher.car.CarInternals;
+import nu.tengstrand.contextswitcher.car.banking.CarAsRowInFile;
+import nu.tengstrand.contextswitcher.car.business.Car;
 
 /**
  * Represents a car as a record in a table in the database.

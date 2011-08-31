@@ -1,6 +1,6 @@
 package nu.tengstrand.contextswitcher.car.persistence;
 
-import nu.tengstrand.contextswitcher.car.contextswitch.CarContextSwitcher;
+import nu.tengstrand.contextswitcher.car.CarContextSwitcher;
 
 public class DbPersister {
     public Integer save(Integer primaryKey, CarContextSwitcher carContextSwitcher) {

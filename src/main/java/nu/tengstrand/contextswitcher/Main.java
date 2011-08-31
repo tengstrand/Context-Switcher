@@ -1,10 +1,10 @@
 package nu.tengstrand.contextswitcher;
 
-import nu.tengstrand.contextswitcher.car.Car;
-import nu.tengstrand.contextswitcher.car.CarAsRowInFile;
+import nu.tengstrand.contextswitcher.car.CarFactory;
+import nu.tengstrand.contextswitcher.car.banking.CarAsRowInFile;
+import nu.tengstrand.contextswitcher.car.business.Car;
 import nu.tengstrand.contextswitcher.car.persistence.DbPersister;
 import nu.tengstrand.contextswitcher.car.persistence.CarInDb;
-import nu.tengstrand.contextswitcher.car.contextswitch.CarFactory;
 
 public class Main {
 

@@ -1,4 +1,4 @@
-package nu.tengstrand.contextswitcher.car.contextswitch;
+package nu.tengstrand.contextswitcher.car;
 
 /**
  * Put the internal representation of a car, that is shared between
