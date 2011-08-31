@@ -35,9 +35,9 @@ public class CarContextSwitcher {
         return carInDb;
     }
 
-    public CarAsRowInFile asRowInFile(FileWriter fileWriter) {
+    public CarAsRowInFile asRowInFile() {
         if (carAsRowInFile == null) {
-            carAsRowInFile = new CarAsRowInFile(internals, this, fileWriter);
+            carAsRowInFile = new CarAsRowInFile(internals, this);
         }
         return carAsRowInFile;
     }

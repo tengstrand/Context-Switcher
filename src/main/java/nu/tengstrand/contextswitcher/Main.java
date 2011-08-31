@@ -30,12 +30,12 @@ public class Main {
         // 3. Change context to "as row in file" and append to file.
         //    Only the method appendToFile() is exposed from this context.
         FileWriter fileWriter = new FileWriter("Car.txt");
-        CarAsRowInFile carToBeStoredInFile = carInDb.asRowInFile(fileWriter);
-        carToBeStoredInFile.appendToFile();
+        CarAsRowInFile carToBeStoredInFile = carInDb.asRowInFile();
+        carToBeStoredInFile.appendToFile(fileWriter);
 
         // 4. Read a car from file and change context to "business layer".
         String rowInFile = new FileReader("Car.txt").readNextRowFromFile();
-        CarAsRowInFile carFromFile = CarFactory.createCarAsRowInFile(rowInFile, fileWriter);
+        CarAsRowInFile carFromFile = CarFactory.createCarAsRowInFile(rowInFile);
         System.out.println("Row in file context: " + carFromFile);
         Car businessLayerCarFromFile = carFromFile.asCar();
         System.out.println("Business layer context: " + businessLayerCarFromFile);

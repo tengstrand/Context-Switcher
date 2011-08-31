@@ -21,17 +21,14 @@ public class CarAsRowInFile {
     private final CarContextSwitcher contextSwitcher;
 
     private String rowInFile;
-    private FileWriter fileWriter;
 
     /**
      * DO NOT USE THIS CONSTRUCTOR - use the factory!
      *
      * @param rowInFile row in a text file.
-     * @param fileWriter used by appendToFile() to append a car to the file.
      */
-    public CarAsRowInFile(String rowInFile, FileWriter fileWriter) {
+    public CarAsRowInFile(String rowInFile) {
         this.rowInFile = rowInFile;
-        this.fileWriter = fileWriter;
 
         internals = createCarInternals(); // We also need to set the internal representation.
         contextSwitcher = new CarContextSwitcher(internals);
@@ -47,10 +44,9 @@ public class CarAsRowInFile {
     /**
      * DO NOT USE THIS CONSTRUCTOR - use the CarFactory!
      */
-    public CarAsRowInFile(CarInternals carInternals, CarContextSwitcher carContextSwitcher, FileWriter fileWriter) {
+    public CarAsRowInFile(CarInternals carInternals, CarContextSwitcher carContextSwitcher) {
         internals = carInternals;
         contextSwitcher = carContextSwitcher;
-        this.fileWriter = fileWriter;
         setRowInFile(); // We also need to set the "row in file" representation.
     }
 
@@ -67,7 +63,7 @@ public class CarAsRowInFile {
         return contextSwitcher.asCarInDb(dbPersister);
     }
 
-    public void appendToFile() {
+    public void appendToFile(FileWriter fileWriter) {
         fileWriter.appendToFile(rowInFile);
     }
 

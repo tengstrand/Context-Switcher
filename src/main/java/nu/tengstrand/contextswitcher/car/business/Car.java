@@ -27,7 +27,7 @@ public class Car {
     }
 
     public CarAsRowInFile asRowInFile(FileWriter fileWriter) {
-        return contextSwitcher.asRowInFile(fileWriter);
+        return contextSwitcher.asRowInFile();
     }
 
     /**

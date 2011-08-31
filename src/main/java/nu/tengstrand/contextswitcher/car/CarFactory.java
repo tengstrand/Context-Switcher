@@ -21,7 +21,7 @@ public class CarFactory {
         return new CarContextSwitcher(carInternals).asCarInDb(dbPersister);
     }
 
-    public static CarAsRowInFile createCarAsRowInFile(String rowInFile, FileWriter fileWriter) {
-        return new CarAsRowInFile(rowInFile, fileWriter);
+    public static CarAsRowInFile createCarAsRowInFile(String rowInFile) {
+        return new CarAsRowInFile(rowInFile);
     }
 }

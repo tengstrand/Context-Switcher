@@ -27,8 +27,8 @@ public class CarInDb {
         return contextSwitcher.asCar();
     }
 
-    public CarAsRowInFile asRowInFile(FileWriter fileWriter) {
-        return contextSwitcher.asRowInFile(fileWriter);
+    public CarAsRowInFile asRowInFile() {
+        return contextSwitcher.asRowInFile();
     }
 
     public void save() {
