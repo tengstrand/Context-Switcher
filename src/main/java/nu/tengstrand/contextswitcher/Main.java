@@ -11,7 +11,8 @@ public class Main {
     /**
      * This is an example of the pattern Context Switcher.
      *
-     * Author: Joakim Tengstrand, august 2011.
+     * Author: Joakim Tengstrand
+     * Invented: 24 August 2011
      */
     public static void main(String[] args) {
         // 1. Create an instance of Car and run some business logic.
