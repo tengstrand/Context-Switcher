@@ -23,19 +23,21 @@ public class Main {
         DbPersister dbPersister = new DbPersister();
         CarRepository carRepository = new CarRepository();
 
-        // 1. We can perform validations before we choose representation.
+        // 1. First we create the state, then we choose representation based on
+        // the context and type of work we want to do.
+        Car volvo = CarFactory.create(479, "Volvo", BLUE).asCar();
+        System.out.println("1. volvo.isBig(): " + volvo.isBig());
+        CarInDb volvoInDb = volvo.asCarInDb();
+        System.out.println("2. volvoInDb.isPersisted(): " + volvoInDb.isPersisted() + "\n");
+        newLine();
+
+        // 2. We can perform validations before we choose representation.
         //    If the state is not valid, the method asCar() will throw an IllegalStateException.
         CarStateAsRow fiatRow = CarStateAsRow.createFromRow("384,Fiat,WHITE");
-        System.out.println("1. " + fiatRow + ", isValid: " + fiatRow.isValid());
+        System.out.println("3. " + fiatRow + ", isValid: " + fiatRow.isValid());
         Car fiat = fiatRow.asCar();
-        System.out.println("2. fiat.isBig(): " + fiat.isBig());
-
-        // 2. The pattern is the same, first we create the state (and can perform validations if we want)
-        //    and then we choose representation based on the context and type of work we want to do.
-        Car volvo = CarFactory.create(479, "Volvo", BLUE).asCar();
-        System.out.println("3. volvo.isBig(): " + volvo.isBig());
-        CarInDb volvoInDb = volvo.asCarInDb();
-        System.out.println("4. volvo.isPersisted(): " + volvoInDb.isPersisted() + "\n");
+        System.out.println("4. fiat.isBig(): " + fiat.isBig());
+        newLine();
 
         // 3. An invalid state is created (length < 100) then we fix the state and dresses up as Car
         //    (to be able to perform "Car" work!).
@@ -44,7 +46,8 @@ public class Main {
         saabState.lengthInCentimeters = 350;
         System.out.println("6. saabState.isValid(): " + saabState.isValid());
         Car saab = saabState.asCar();
-        System.out.println("7. Saab as car: " + saab + "\n");
+        System.out.println("7. Saab as car: " + saab);
+        newLine();
 
         // 4. Demonstrates how the pattern Chained Creator can be used to improve the API.
         CarInDb lamborghini = CarFactory.create()
@@ -53,7 +56,8 @@ public class Main {
                 .color(RED).asCarInDb();
         System.out.println("8. lamborghini.isPersisted(): " + lamborghini.isPersisted());
         lamborghini.save(dbPersister);
-        System.out.println("9. lamborghini.isPersisted(): " + lamborghini.isPersisted() + "\n");
+        System.out.println("9. lamborghini.isPersisted(): " + lamborghini.isPersisted());
+        newLine();
 
         PublicCarStates carStates = carRepository.findBy("color=BLUE");
         System.out.println("carStates.isValid(): " + carStates.isValid());
@@ -63,5 +67,9 @@ public class Main {
         CarInDb porscheInDb = CarFactory.create(424, "Porsche", BLACK).asCarInDb().save(dbPersister);
         PrintStream output = System.out; // Faking output to file
         porscheInDb.as().carAsRowInFile().export(output);
+    }
+
+    private static void newLine() {
+        System.out.println("\n");
     }
 }
