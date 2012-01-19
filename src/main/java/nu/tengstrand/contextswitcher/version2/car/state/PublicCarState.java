@@ -6,10 +6,16 @@ import nu.tengstrand.contextswitcher.version2.car.export.CarAsRowInFile;
 import nu.tengstrand.contextswitcher.version2.car.persistence.CarInDb;
 
 /**
- * This class main responsibility is to create valid instances of CarState.
- * Only PublicCarState is allowed to create new instances of CarState.
- * The reason is that we want to force the use of PublicCarState when creating
- * new instances of Car, CarInDb and CarAsRowInFile.
+ * This class is responsible for creating valid instances of
+ * Car, CarInDb and CarAsRowInFile.
+ *
+ * We want to force the use of PublicCarState when creating new instances
+ * of Car, CarInDb and CarAsRowInFile. That is the reason why this is
+ * the only class that has the rights to create instances of CarState.
+ *
+ * We don't want to get into a situation where the user creates an
+ * instance of CarState, sends it in to the constructor of (e.g) Car
+ * and then mutate the state of 'car' via 'carState'.
  */
 public class PublicCarState {
     public Integer primaryKey;
