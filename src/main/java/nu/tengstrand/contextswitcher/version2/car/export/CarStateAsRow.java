@@ -40,7 +40,7 @@ public class CarStateAsRow {
     }
 
     /**
-     * Converts the row format (e.g) "100,Volvo,RED" to an instance of CarStateAsStrings,
+     * Converts the row format (e.g) "480,Volvo,RED" to an instance of CarStateAsStrings,
      *
      * @throws IllegalArgumentException if the row could not be converted
      */
