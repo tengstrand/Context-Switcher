@@ -21,9 +21,6 @@ public class CarStateAsStrings {
     }
 
     public boolean isValid() {
-        if (name == null || color == null) {
-            return false;
-        }
         try {
             return asCarState().isValid();
         } catch (Exception e) {
