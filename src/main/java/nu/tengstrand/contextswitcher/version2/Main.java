@@ -28,7 +28,7 @@ public class Main {
         Car volvo = CarFactory.create(479, "Volvo", BLUE).asCar();
         System.out.println("1. volvo.isBig(): " + volvo.isBig());
         CarInDb volvoInDb = volvo.asCarInDb();
-        System.out.println("2. volvoInDb.isPersisted(): " + volvoInDb.isPersisted() + "\n");
+        System.out.println("2. volvoInDb.isPersisted(): " + volvoInDb.isPersisted());
         newLine();
 
         // 2. We can perform validations before we choose representation.
