@@ -2,7 +2,6 @@ package nu.tengstrand.contextswitcher.version2.car.export;
 
 import nu.tengstrand.contextswitcher.version2.car.CarStateAsStrings;
 import nu.tengstrand.contextswitcher.version2.car.business.Car;
-import nu.tengstrand.contextswitcher.version2.car.persistence.CarInDb;
 
 /**
  * Responsible for converting a row in the format (e.g) "100,Volvo,RED"
@@ -43,7 +42,7 @@ public class CarStateAsRow {
     /**
      * Converts the row format (e.g) "100,Volvo,RED" to an instance of CarStateAsStrings,
      *
-     * @throws IllegalArgumentException if the row could not be transformed
+     * @throws IllegalArgumentException if the row could not be converted
      */
     private CarStateAsStrings asStrings() {
         if (row == null) {

@@ -25,7 +25,7 @@ public class Main {
 
         // 1. First we create the state, then we choose representation based on
         // the context and type of work we want to do.
-        Car volvo = CarFactory.create(479, "Volvo", BLUE).asCar();
+        Car volvo = CarFactory.create(480, "Volvo", RED).asCar();
         System.out.println("1. volvo.isBig(): " + volvo.isBig());
         CarInDb volvoInDb = volvo.asCarInDb();
         System.out.println("2. volvoInDb.isPersisted(): " + volvoInDb.isPersisted());
