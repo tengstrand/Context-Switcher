@@ -3,7 +3,7 @@ package nu.tengstrand.contextswitcher.version2.car;
 import nu.tengstrand.contextswitcher.version2.car.state.PublicCarState;
 
 /**
- * Represents the state as strings.
+ * Represents the car state as strings.
  */
 public class CarStateAsStrings {
     public String lengthInCentimeters;
