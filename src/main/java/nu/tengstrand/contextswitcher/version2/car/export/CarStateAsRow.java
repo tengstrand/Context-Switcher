@@ -4,8 +4,8 @@ import nu.tengstrand.contextswitcher.version2.car.CarStateAsStrings;
 import nu.tengstrand.contextswitcher.version2.car.business.Car;
 
 /**
- * Responsible for converting a row in the format (e.g) "100,Volvo,RED"
- * into a format where every attribute is a string: "100", "Volvo", "RED".
+ * Responsible for converting a row in the format (e.g) "480,Volvo,RED"
+ * into a format where every attribute is a string: "480", "Volvo", "RED".
  */
 public class CarStateAsRow {
     private final String row;
