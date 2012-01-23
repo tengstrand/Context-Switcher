@@ -12,6 +12,6 @@ public class DbPersister {
         if (state.primaryKey == null) {
             state.primaryKey = primaryKey++;
         }
-        System.out.println("Saved to database: " + state.allAttributes());
+        System.out.println("Saved car to database: " + state.allAttributes());
     }
 }

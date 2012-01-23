@@ -38,9 +38,6 @@ public class CarInDb {
      */
     @Override
     public int hashCode() {
-        if (state.primaryKey != null)
-            return state.primaryKey.hashCode();
-
         return state.hashCode();
     }
 

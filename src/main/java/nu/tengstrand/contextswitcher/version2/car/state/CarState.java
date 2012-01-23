@@ -70,6 +70,8 @@ public class CarState {
      */
     @Override
     public int hashCode() {
+        if (primaryKey != null) return primaryKey.hashCode();
+
         int result = lengthInCentimeters;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (color != null ? color.hashCode() : 0);

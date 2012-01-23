@@ -23,41 +23,66 @@ public class Main {
         DbPersister dbPersister = new DbPersister();
         CarRepository carRepository = new CarRepository();
 
-        // 1. First we create the state, then we choose representation based on
-        // the context and type of work we want to do.
+        //---
+        //--- 1. Build state
+        //---
+
+        // Example 1a - build state by from argument list.
+        example("1a");
         Car volvo = CarFactory.create(480, "Volvo", RED).asCar();
-        System.out.println("1. volvo.isBig(): " + volvo.isBig());
-        CarInDb volvoInDb = volvo.asCarInDb();
-        System.out.println("2. volvoInDb.isPersisted(): " + volvoInDb.isPersisted());
-        newLine();
+        System.out.println("volvo.isBig(): " + volvo.isBig());
 
-        // 2. We can perform validations before we choose representation.
-        //    If the state is not valid, the method asCar() will throw an IllegalStateException.
-        CarStateAsRow fiatRow = CarStateAsRow.createFromRow("384,Fiat,WHITE");
-        System.out.println("3. " + fiatRow + ", isValid: " + fiatRow.isValid());
-        Car fiat = fiatRow.asCar();
-        System.out.println("4. fiat.isBig(): " + fiat.isBig());
-        newLine();
-
-        // 3. An invalid state is created (length < 100) then we fix the state and dresses up as Car
-        //    (to be able to perform "Car" work!).
-        PublicCarState saabState = CarFactory.create(50, "Saab", GREEN);
-        System.out.println("5. saabState.isValid(): " + saabState.isValid());
-        saabState.lengthInCentimeters = 350;
-        System.out.println("6. saabState.isValid(): " + saabState.isValid());
-        Car saab = saabState.asCar();
-        System.out.println("7. Saab as car: " + saab);
-        newLine();
-
-        // 4. Demonstrates how the pattern Chained Creator can be used to improve the API.
+        // Example 1b - build state by using the the pattern ChainedCreator.
+        example("1b");
         CarInDb lamborghini = CarFactory.create()
                 .lengthInCentimeters(479)
                 .name("Lamborghini")
                 .color(RED).asCarInDb();
-        System.out.println("8. lamborghini.isPersisted(): " + lamborghini.isPersisted());
-        lamborghini.save(dbPersister);
-        System.out.println("9. lamborghini.isPersisted(): " + lamborghini.isPersisted());
-        newLine();
+        System.out.println("lamborghini.isPersisted(): " + lamborghini.isPersisted());
+
+        // Example 1c - build state from a comma separated row.
+        example("1c");
+        Car fiat = CarStateAsRow.createFromRow("384,Fiat,WHITE").asCar();
+        System.out.println("fiat: " + fiat);
+
+        //---
+        //--- 2. Validate
+        //---
+
+        // Example 2a - check if the state is valid.
+        example("2a");
+        CarStateAsRow fiatRow = CarStateAsRow.createFromRow("15,Fiat,WHITE");
+        System.out.println("fiatRow.isValid(): " + fiatRow.isValid());
+        // Car importedFiat = fiatRow.asCar();  This will throw an IllegalStateException
+
+        // Example 2b - fix invalid state.
+        example("2b");
+        PublicCarState saabState = CarFactory.create(50, "Saab", GREEN);
+        System.out.println("saabState.isValid(): " + saabState.isValid());
+        saabState.lengthInCentimeters = 350;
+        System.out.println("saabState.isValid(): " + saabState.isValid());
+        Car saab = saabState.asCar();
+        System.out.println("saab: " + saab);
+
+        //---
+        //--- 3. Context
+        //---
+
+        // Example 3a - switch to database context
+        example("3a");
+        CarInDb volvoInDb = volvo.asCarInDb();
+        System.out.println("volvoInDb: " + volvoInDb);
+        System.out.println("volvoInDb.isPersisted(): " + volvoInDb.isPersisted());
+        volvoInDb.save(dbPersister);
+        System.out.println("volvoInDb.isPersisted(): " + volvoInDb.isPersisted());
+
+        example("xxxx");
+
+
+
+
+
+
 
         PublicCarStates carStates = carRepository.findBy("color=BLUE");
         System.out.println("carStates.isValid(): " + carStates.isValid());
@@ -69,7 +94,7 @@ public class Main {
         porscheInDb.as().carAsRowInFile().export(output);
     }
 
-    private static void newLine() {
-        System.out.println("\n");
+    private static void example(String example) {
+        System.out.println("\n*** Example " + example + " ***");
     }
 }
