@@ -1,5 +1,6 @@
 package nu.tengstrand.contextswitcher.version2.car;
 
+import nu.tengstrand.contextswitcher.version2.car.context.Context;
 import nu.tengstrand.contextswitcher.version2.car.state.PublicCarState;
 
 /**
@@ -10,13 +11,17 @@ public class CarStateAsStrings {
     public String name;
     public String color;
 
-    public CarStateAsStrings() {
+    private final Context context;
+
+    public CarStateAsStrings(Context context) {
+        this.context = context;
     }
 
-    public CarStateAsStrings(String lengthInCentimeters, String name, String color) {
+    public CarStateAsStrings(String lengthInCentimeters, String name, String color, Context context) {
         this.lengthInCentimeters = lengthInCentimeters;
         this.name = name;
         this.color = color;
+        this.context = context;
     }
 
     public PublicCarState asPublicCarState() {
@@ -37,6 +42,6 @@ public class CarStateAsStrings {
     private PublicCarState asCarState() {
         int length = Integer.parseInt(lengthInCentimeters);
         CarColor color = CarColor.valueOf(this.color);
-        return new PublicCarState(length, name, color);
+        return new PublicCarState(length, name, color, context);
     }
 }

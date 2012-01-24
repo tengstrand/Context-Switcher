@@ -1,13 +1,16 @@
 package nu.tengstrand.contextswitcher.version2.car.business;
 
+import nu.tengstrand.contextswitcher.version2.car.context.Context;
 import nu.tengstrand.contextswitcher.version2.car.persistence.CarInDb;
 import nu.tengstrand.contextswitcher.version2.car.state.CarState;
 
 public class Car {
     private final CarState state;
+    private final Context context;
 
-    public Car(CarState carState) {
+    public Car(CarState carState, Context context) {
         state = carState;
+        this.context = context;
     }
 
     public CarInDb asCarInDb() {
@@ -30,8 +33,13 @@ public class Car {
         return state.hashCode();
     }
 
+    /**
+     * The role "user" is not allowed to see
+     *
+     * @return
+     */
     @Override
     public String toString() {
-        return "Car{" + state + '}';
+        return "Car{" + state.toString(context) + '}';
     }
 }

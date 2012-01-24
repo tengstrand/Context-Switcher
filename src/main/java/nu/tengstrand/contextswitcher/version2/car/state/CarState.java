@@ -1,6 +1,7 @@
 package nu.tengstrand.contextswitcher.version2.car.state;
 
 import nu.tengstrand.contextswitcher.version2.car.CarColor;
+import nu.tengstrand.contextswitcher.version2.car.context.Context;
 
 /**
  * Represents the immutable state of all different representations of the concept Car.
@@ -78,16 +79,21 @@ public class CarState {
         return result;
     }
 
-    public String allAttributes() {
-        return "primaryKey=" + primaryKey + ", " + toString();
+    /**
+     * A context sensitive toString implementation.
+     */
+    public String toString(Context context) {
+        String carColor = context.isRenaultManager() ? color.toString() : "***";
+        return toString(lengthInCentimeters, name, carColor);
     }
 
-    /**
-     * Remember to exclude "primaryKey",  it should only be considered in the context "CarInDb".
-     */
     @Override
     public String toString() {
-        return "length=" + lengthInCentimeters +
+        return toString(lengthInCentimeters, name, color.toString());
+    }
+
+    private String toString(int length, String name, String color) {
+        return "length=" + length +
                 ", name='" + name + '\'' +
                 ", color=" + color;
     }

@@ -2,6 +2,7 @@ package nu.tengstrand.contextswitcher.version2.car.export;
 
 import nu.tengstrand.contextswitcher.version2.car.CarStateAsStrings;
 import nu.tengstrand.contextswitcher.version2.car.business.Car;
+import nu.tengstrand.contextswitcher.version2.car.context.Context;
 
 /**
  * Responsible for converting a row in the format (e.g) "480,Volvo,RED"
@@ -10,19 +11,16 @@ import nu.tengstrand.contextswitcher.version2.car.business.Car;
 public class CarStateAsRow {
     private final String row;
 
-    // Make the constructor private, we want to force the use of the method
-    // createFromRow to improve the readability of the code.
-    private CarStateAsRow(String row) {
-        this.row = row;
-    }
+    private final Context context;
 
-    public static CarStateAsRow createFromRow(String rowInFile) {
-        return new CarStateAsRow(rowInFile);
+    public CarStateAsRow(String row, Context context) {
+        this.row = row;
+        this.context = context;
     }
 
     /**
      * Performs a "complete validation" of the car state, all the way down to CarState
-     * so we we know that we can wrap behaviour around this state object.
+     * to make sure that we can wrap behaviour around this state object.
      */
     public boolean isValid() {
         try {
@@ -53,7 +51,7 @@ public class CarStateAsRow {
         if (values.length != 3) {
             throw new IllegalArgumentException("Expected to find three values in the row");
         }
-        return new CarStateAsStrings(values[0], values[1], values[2]);
+        return new CarStateAsStrings(values[0], values[1], values[2], context);
     }
 
     @Override

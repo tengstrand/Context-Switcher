@@ -1,6 +1,7 @@
 package nu.tengstrand.contextswitcher.version2.car.state;
 
 import nu.tengstrand.contextswitcher.version2.car.business.Car;
+import nu.tengstrand.contextswitcher.version2.car.context.Context;
 import nu.tengstrand.contextswitcher.version2.car.export.CarAsRowInFile;
 import nu.tengstrand.contextswitcher.version2.car.persistence.CarInDb;
 
@@ -22,8 +23,8 @@ public class CarStateSwitcher {
         this.state = state;
     }
 
-    public Car car() {
-        return new Car(state);
+    public Car car(Context context) {
+        return new Car(state, context);
     }
 
     public CarAsRowInFile carAsRowInFile() {

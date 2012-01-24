@@ -2,6 +2,7 @@ package nu.tengstrand.contextswitcher.version2.car.state;
 
 import nu.tengstrand.contextswitcher.version2.car.CarColor;
 import nu.tengstrand.contextswitcher.version2.car.business.Car;
+import nu.tengstrand.contextswitcher.version2.car.context.Context;
 import nu.tengstrand.contextswitcher.version2.car.export.CarAsRowInFile;
 import nu.tengstrand.contextswitcher.version2.car.persistence.CarInDb;
 
@@ -23,14 +24,17 @@ public class PublicCarState {
     public String name;
     public CarColor color;
 
-    public PublicCarState(int lengthInCentimeters, String name, CarColor color) {
+    private final Context context;
+
+    public PublicCarState(int lengthInCentimeters, String name, CarColor color, Context context) {
         this.lengthInCentimeters = lengthInCentimeters;
         this.name = name;
         this.color = color;
+        this.context = context;
     }
 
-    public PublicCarState(int primaryKey, int lengthInCentimeters, String name, CarColor color) {
-        this(lengthInCentimeters, name, color);
+    public PublicCarState(int primaryKey, int lengthInCentimeters, String name, CarColor color, Context context) {
+        this(lengthInCentimeters, name, color, context);
         this.primaryKey = primaryKey;
     }
 
@@ -63,7 +67,7 @@ public class PublicCarState {
      * Encapsulates the car state and adds behaviour that is meaningful in the Car context.
      */
     public Car asCar() {
-        return new Car(carState());
+        return new Car(carState(), context);
     }
 
     /**

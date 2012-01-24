@@ -2,10 +2,12 @@ package nu.tengstrand.contextswitcher.version2;
 
 import nu.tengstrand.contextswitcher.version2.car.CarFactory;
 import nu.tengstrand.contextswitcher.version2.car.business.Car;
+import nu.tengstrand.contextswitcher.version2.car.context.Context;
+import nu.tengstrand.contextswitcher.version2.car.context.UserRole;
 import nu.tengstrand.contextswitcher.version2.car.export.CarStateAsRow;
 import nu.tengstrand.contextswitcher.version2.car.persistence.CarInDb;
 import nu.tengstrand.contextswitcher.version2.car.persistence.CarRepository;
-import nu.tengstrand.contextswitcher.version2.car.persistence.DbPersister;
+import nu.tengstrand.contextswitcher.version2.car.persistence.Database;
 import nu.tengstrand.contextswitcher.version2.car.state.PublicCarState;
 import nu.tengstrand.contextswitcher.version2.car.state.PublicCarStates;
 
@@ -20,8 +22,11 @@ import static nu.tengstrand.contextswitcher.version2.car.CarColor.*;
 public class Main {
 
     public static void main(String[] args) {
-        DbPersister dbPersister = new DbPersister();
-        CarRepository carRepository = new CarRepository();
+        Context context = new Context(UserRole.DEFAULT);
+        CarFactory carFactory = new CarFactory(context);
+        CarRepository carRepository = new CarRepository(context);
+
+        Database database = new Database();
 
         //---
         //--- 1. Build state
@@ -29,12 +34,12 @@ public class Main {
 
         // Example 1a - build state by from argument list.
         example("1a");
-        Car volvo = CarFactory.create(480, "Volvo", RED).asCar();
+        Car volvo = carFactory.create(480, "Volvo", RED).asCar();
         System.out.println("volvo.isBig(): " + volvo.isBig());
 
         // Example 1b - build state by using the the pattern ChainedCreator.
         example("1b");
-        CarInDb lamborghini = CarFactory.create()
+        CarInDb lamborghini = carFactory.create()
                 .lengthInCentimeters(479)
                 .name("Lamborghini")
                 .color(RED).asCarInDb();
@@ -42,7 +47,7 @@ public class Main {
 
         // Example 1c - build state from a comma separated row.
         example("1c");
-        Car fiat = CarStateAsRow.createFromRow("384,Fiat,WHITE").asCar();
+        Car fiat = carFactory.createFromRow("384,Fiat,WHITE").asCar();
         System.out.println("fiat: " + fiat);
 
         //---
@@ -51,13 +56,13 @@ public class Main {
 
         // Example 2a - check if the state is valid.
         example("2a");
-        CarStateAsRow fiatRow = CarStateAsRow.createFromRow("15,Fiat,WHITE");
+        CarStateAsRow fiatRow = carFactory.createFromRow("15,Fiat,WHITE");
         System.out.println("fiatRow.isValid(): " + fiatRow.isValid());
         // Car importedFiat = fiatRow.asCar();  This will throw an IllegalStateException
 
         // Example 2b - fix invalid state.
         example("2b");
-        PublicCarState saabState = CarFactory.create(50, "Saab", GREEN);
+        PublicCarState saabState = carFactory.create(50, "Saab", GREEN);
         System.out.println("saabState.isValid(): " + saabState.isValid());
         saabState.lengthInCentimeters = 350;
         System.out.println("saabState.isValid(): " + saabState.isValid());
@@ -73,13 +78,18 @@ public class Main {
         CarInDb volvoInDb = volvo.asCarInDb();
         System.out.println("volvoInDb: " + volvoInDb);
         System.out.println("volvoInDb.isPersisted(): " + volvoInDb.isPersisted());
-        volvoInDb.save(dbPersister);
+        volvoInDb.save(database);
         System.out.println("volvoInDb.isPersisted(): " + volvoInDb.isPersisted());
 
-        example("xxxx");
+        example("3b");
+        CarFactory newFactory = new CarFactory(new Context(UserRole.MANAGER));
 
+        Car renaultAsUser = carFactory.create(416, "Renault", BLUE).asCar();
+        Car renaultAsManager = newFactory.create(416, "Renault", BLUE).asCar();
+        System.out.println("renaultAsUser: " + renaultAsUser);
+        System.out.println("renaultAsManager: " + renaultAsManager);
 
-
+        example("--------");
 
 
 
@@ -89,7 +99,7 @@ public class Main {
         System.out.println("carStates.asCarsInDb(): " + carStates.asCarsInDb());
 
         // Saves a car to database + export to file
-        CarInDb porscheInDb = CarFactory.create(424, "Porsche", BLACK).asCarInDb().save(dbPersister);
+        CarInDb porscheInDb = carFactory.create(424, "Porsche", BLACK).asCarInDb().save(database);
         PrintStream output = System.out; // Faking output to file
         porscheInDb.as().carAsRowInFile().export(output);
     }

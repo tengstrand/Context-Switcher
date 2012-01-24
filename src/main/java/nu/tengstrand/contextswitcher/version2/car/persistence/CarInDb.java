@@ -14,8 +14,12 @@ public class CarInDb {
         return state.primaryKey != null;
     }
 
-    public CarInDb save(DbPersister dbPersister) {
-        dbPersister.save(state);
+    public CarInDb save(Database database) {
+        if (state.primaryKey == null) {
+            state.primaryKey = database.getNextCarPrimaryKey();
+        }
+        System.out.println("Saved to database: " + this);
+
         return this;
     }
 
