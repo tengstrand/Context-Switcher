@@ -4,10 +4,10 @@ import nu.tengstrand.contextswitcher.version2.car.state.CarState;
 
 import java.io.PrintStream;
 
-public class CarAsRowInFile {
+public class CarAsRow {
     private String carAsRow;
 
-    public CarAsRowInFile(CarState state) {
+    public CarAsRow(CarState state) {
         carAsRow = state.lengthInCentimeters + "," + state.name + "," + state.color;
     }
 

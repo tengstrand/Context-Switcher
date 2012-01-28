@@ -3,7 +3,7 @@ package nu.tengstrand.contextswitcher.version2.car.state;
 import nu.tengstrand.contextswitcher.version2.car.CarColor;
 import nu.tengstrand.contextswitcher.version2.car.business.Car;
 import nu.tengstrand.contextswitcher.version2.car.context.Context;
-import nu.tengstrand.contextswitcher.version2.car.export.CarAsRowInFile;
+import nu.tengstrand.contextswitcher.version2.car.export.CarAsRow;
 import nu.tengstrand.contextswitcher.version2.car.persistence.CarInDb;
 
 /**
@@ -80,7 +80,7 @@ public class PublicCarState {
     /**
      * Encapsulates the car state and adds behaviour that is meaningful in the CarAsRow context.
      */
-    public CarAsRowInFile asCarAsRow() {
-        return new CarAsRowInFile(carState());
+    public CarAsRow asCarAsRow() {
+        return new CarAsRow(carState());
     }
 }

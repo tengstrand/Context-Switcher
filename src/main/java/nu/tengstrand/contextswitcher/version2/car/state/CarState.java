@@ -79,21 +79,13 @@ public class CarState {
         return result;
     }
 
-    /**
-     * A context sensitive toString implementation.
-     */
-    public String toString(Context context) {
-        String carColor = context.isRenaultManager() ? color.toString() : "***";
-        return toString(lengthInCentimeters, name, carColor);
-    }
-
     @Override
     public String toString() {
-        return toString(lengthInCentimeters, name, color.toString());
+        return toString(color.toString());
     }
 
-    private String toString(int length, String name, String color) {
-        return "length=" + length +
+    public String toString(String color) {
+        return "length=" + lengthInCentimeters +
                 ", name='" + name + '\'' +
                 ", color=" + color;
     }

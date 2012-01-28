@@ -22,7 +22,7 @@ import static nu.tengstrand.contextswitcher.version2.car.CarColor.*;
 public class Main {
 
     public static void main(String[] args) {
-        Context context = new Context(UserRole.DEFAULT);
+        Context context = new Context();
         CarFactory carFactory = new CarFactory(context);
         CarRepository carRepository = new CarRepository(context);
 
@@ -82,12 +82,11 @@ public class Main {
         System.out.println("volvoInDb.isPersisted(): " + volvoInDb.isPersisted());
 
         example("3b");
-        CarFactory newFactory = new CarFactory(new Context(UserRole.MANAGER));
-
-        Car renaultAsUser = carFactory.create(416, "Renault", BLUE).asCar();
-        Car renaultAsManager = newFactory.create(416, "Renault", BLUE).asCar();
-        System.out.println("renaultAsUser: " + renaultAsUser);
-        System.out.println("renaultAsManager: " + renaultAsManager);
+        CarFactory newFactory = new CarFactory(new Context(UserRole.RESTRICTED));
+        Car renault = carFactory.create(416, "Renault", BLUE).asCar();
+        Car renaultInNewContext = newFactory.create(416, "Renault", BLUE).asCar();
+        System.out.println("renault: " + renault);
+        System.out.println("renaultInNewContext: " + renaultInNewContext);
 
         example("--------");
 
@@ -99,9 +98,10 @@ public class Main {
         System.out.println("carStates.asCarsInDb(): " + carStates.asCarsInDb());
 
         // Saves a car to database + export to file
-        CarInDb porscheInDb = carFactory.create(424, "Porsche", BLACK).asCarInDb().save(database);
+        PublicCarState publicCarState = carFactory.create(424, "Porsche", BLACK);
+        publicCarState.asCarInDb().save(database);
         PrintStream output = System.out; // Faking output to file
-        porscheInDb.as().carAsRowInFile().export(output);
+        publicCarState.asCarAsRow().export(output);
     }
 
     private static void example(String example) {

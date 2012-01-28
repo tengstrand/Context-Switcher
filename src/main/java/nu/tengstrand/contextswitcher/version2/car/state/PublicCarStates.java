@@ -1,7 +1,7 @@
 package nu.tengstrand.contextswitcher.version2.car.state;
 
 import nu.tengstrand.contextswitcher.version2.car.business.Car;
-import nu.tengstrand.contextswitcher.version2.car.export.CarAsRowInFile;
+import nu.tengstrand.contextswitcher.version2.car.export.CarAsRow;
 import nu.tengstrand.contextswitcher.version2.car.persistence.CarInDb;
 
 import java.util.ArrayList;
@@ -36,8 +36,8 @@ public class PublicCarStates {
         return cars;
     }
 
-    public List<CarAsRowInFile> asCarsAsRow() {
-        List<CarAsRowInFile> cars = new ArrayList<CarAsRowInFile>();
+    public List<CarAsRow> asCarsAsRow() {
+        List<CarAsRow> cars = new ArrayList<CarAsRow>();
         for (PublicCarState state : carStates) {
             cars.add(state.asCarAsRow());
         }
