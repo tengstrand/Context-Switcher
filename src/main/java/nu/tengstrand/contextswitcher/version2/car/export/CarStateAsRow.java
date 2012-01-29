@@ -11,11 +11,8 @@ import nu.tengstrand.contextswitcher.version2.car.context.Context;
 public class CarStateAsRow {
     private final String row;
 
-    private final Context context;
-
-    public CarStateAsRow(String row, Context context) {
+    public CarStateAsRow(String row) {
         this.row = row;
-        this.context = context;
     }
 
     /**
@@ -33,8 +30,8 @@ public class CarStateAsRow {
     /**
      * Encapsulates the car state and adds behaviour that is meaningful in the Car context.
      */
-    public Car asCar() {
-        return asStrings().asPublicCarState().asCar();
+    public Car asCar(Context context) {
+        return asStrings().asPublicCarState().asCar(context);
     }
 
     /**
@@ -51,7 +48,7 @@ public class CarStateAsRow {
         if (values.length != 3) {
             throw new IllegalArgumentException("Expected to find three values in the row");
         }
-        return new CarStateAsStrings(values[0], values[1], values[2], context);
+        return new CarStateAsStrings(values[0], values[1], values[2]);
     }
 
     @Override

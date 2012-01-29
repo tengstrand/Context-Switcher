@@ -1,6 +1,5 @@
 package nu.tengstrand.contextswitcher.version2.car;
 
-import nu.tengstrand.contextswitcher.version2.car.context.Context;
 import nu.tengstrand.contextswitcher.version2.car.state.PublicCarState;
 
 /**
@@ -12,17 +11,11 @@ public class PublicCarStateCreator {
     private String name;
     private CarColor color;
 
-    private final Context context;
-
-    public PublicCarStateCreator(Context context) {
-        this.context = context;
-    }
-
     /**
      * Starting point of the constructor chain which ends with a PublicCarState.
      */
-    public static LenghInCentimeter create(Context context) {
-        return new PublicCarStateCreator(context).new LenghInCentimeter();
+    public static LenghInCentimeter create() {
+        return new PublicCarStateCreator().new LenghInCentimeter();
     }
 
     public class LenghInCentimeter {
@@ -42,7 +35,7 @@ public class PublicCarStateCreator {
     public class Color {
         public PublicCarState color(CarColor color) {
             PublicCarStateCreator.this.color = color;
-            return new PublicCarState(lengthInCentimeters, name, color, context);
+            return new PublicCarState(lengthInCentimeters, name, color);
         }
     }
 }

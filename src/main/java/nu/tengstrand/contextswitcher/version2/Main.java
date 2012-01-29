@@ -2,8 +2,8 @@ package nu.tengstrand.contextswitcher.version2;
 
 import nu.tengstrand.contextswitcher.version2.car.CarFactory;
 import nu.tengstrand.contextswitcher.version2.car.business.Car;
-import nu.tengstrand.contextswitcher.version2.car.context.Context;
-import nu.tengstrand.contextswitcher.version2.car.context.UserRole;
+import nu.tengstrand.contextswitcher.version2.car.context.*;
+import nu.tengstrand.contextswitcher.version2.car.context.SystemVersion;
 import nu.tengstrand.contextswitcher.version2.car.export.CarStateAsRow;
 import nu.tengstrand.contextswitcher.version2.car.persistence.CarInDb;
 import nu.tengstrand.contextswitcher.version2.car.persistence.CarRepository;
@@ -22,9 +22,12 @@ import static nu.tengstrand.contextswitcher.version2.car.CarColor.*;
 public class Main {
 
     public static void main(String[] args) {
-        Context context = new Context();
-        CarFactory carFactory = new CarFactory(context);
-        CarRepository carRepository = new CarRepository(context);
+        SystemVersion systemVersion = SystemVersion.BASIC;
+        User currentUser = new User(Role.DEFAULT);
+
+        Context context = new Context(systemVersion, currentUser);
+        CarFactory carFactory = new CarFactory();
+        CarRepository carRepository = new CarRepository();
 
         Database database = new Database();
 
@@ -34,7 +37,7 @@ public class Main {
 
         // Example 1a - build state by from argument list.
         example("1a");
-        Car volvo = carFactory.create(480, "Volvo", RED).asCar();
+        Car volvo = carFactory.create(480, "Volvo", RED).asCar(context);
         System.out.println("volvo.isBig(): " + volvo.isBig());
 
         // Example 1b - build state by using the the pattern ChainedCreator.
@@ -47,7 +50,7 @@ public class Main {
 
         // Example 1c - build state from a comma separated row.
         example("1c");
-        Car fiat = carFactory.createFromRow("384,Fiat,WHITE").asCar();
+        Car fiat = carFactory.createFromRow("384,Fiat,WHITE").asCar(context);
         System.out.println("fiat: " + fiat);
 
         //---
@@ -66,11 +69,11 @@ public class Main {
         System.out.println("saabState.isValid(): " + saabState.isValid());
         saabState.lengthInCentimeters = 350;
         System.out.println("saabState.isValid(): " + saabState.isValid());
-        Car saab = saabState.asCar();
+        Car saab = saabState.asCar(context);
         System.out.println("saab: " + saab);
 
         //---
-        //--- 3. Context
+        //--- 3. Work with different tasks
         //---
 
         // Example 3a - switch to database context
@@ -81,12 +84,26 @@ public class Main {
         volvoInDb.save(database);
         System.out.println("volvoInDb.isPersisted(): " + volvoInDb.isPersisted());
 
-        example("3b");
-        CarFactory newFactory = new CarFactory(new Context(UserRole.RESTRICTED));
-        Car renault = carFactory.create(416, "Renault", BLUE).asCar();
-        Car renaultInNewContext = newFactory.create(416, "Renault", BLUE).asCar();
+        //---
+        //--- 4. Context Oriented Programming (COP)
+        //---
+
+        // Example 4a - context aware code
+        example("4a");
+
+        // 1. Role = DEFAULT, SystemVersion = BASIC
+        Car renault = carFactory.create(416, "Renault", BLUE).asCar(context);
         System.out.println("renault: " + renault);
-        System.out.println("renaultInNewContext: " + renaultInNewContext);
+
+        // 2. Role = RESTRICTED, SystemVersion = BASIC
+        User restrictedUser = new User(Role.RESTRICTED);
+        Context newContext = context.as(restrictedUser);
+        Car renaultInNewContext1 = carFactory.create(416, "Renault", BLUE).asCar(newContext);
+        System.out.println("renaultInNewContext1: " + renaultInNewContext1);
+
+        // 3. Role = RESTRICTED, SystemVersion = ENTERPRISE
+        Car renaultInNewContext2 = carFactory.create(416, "Renault", BLUE).asCar(newContext.in(SystemVersion.ENTERPRISE));
+        System.out.println("renaultInNewContext2: " + renaultInNewContext2);
 
         example("--------");
 

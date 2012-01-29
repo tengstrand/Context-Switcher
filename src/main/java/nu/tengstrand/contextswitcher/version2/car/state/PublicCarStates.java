@@ -1,6 +1,7 @@
 package nu.tengstrand.contextswitcher.version2.car.state;
 
 import nu.tengstrand.contextswitcher.version2.car.business.Car;
+import nu.tengstrand.contextswitcher.version2.car.context.Context;
 import nu.tengstrand.contextswitcher.version2.car.export.CarAsRow;
 import nu.tengstrand.contextswitcher.version2.car.persistence.CarInDb;
 
@@ -28,10 +29,10 @@ public class PublicCarStates {
         return true;
     }
 
-    public List<Car> asCars() {
+    public List<Car> asCars(Context context) {
         List<Car> cars = new ArrayList<Car>();
         for (PublicCarState state : carStates) {
-            cars.add(state.asCar());
+            cars.add(state.asCar(context));
         }
         return cars;
     }

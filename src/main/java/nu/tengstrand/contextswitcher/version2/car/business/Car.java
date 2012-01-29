@@ -6,11 +6,13 @@ import nu.tengstrand.contextswitcher.version2.car.state.CarState;
 
 public class Car {
     private final CarState state;
-    private final Object toString;
+    private final Object attributes;
+    private final SystemInfo systemInfo;
 
     public Car(CarState carState, Context context) {
         state = carState;
-        toString = context.hasRightsToReadColor() ? state : new RestrictedToString(state);
+        attributes = context.hasRightsToReadColor() ? state : new RestrictedAttributes(state);
+        systemInfo = new SystemInfo(context.systemVersion);
     }
 
     public CarInDb asCarInDb() {
@@ -40,6 +42,6 @@ public class Car {
      */
     @Override
     public String toString() {
-        return "Car{" + toString.toString() + '}';
+        return systemInfo + "Car{" + attributes + '}';
     }
 }

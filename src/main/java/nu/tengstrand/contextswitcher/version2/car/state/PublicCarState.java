@@ -24,17 +24,14 @@ public class PublicCarState {
     public String name;
     public CarColor color;
 
-    private final Context context;
-
-    public PublicCarState(int lengthInCentimeters, String name, CarColor color, Context context) {
+    public PublicCarState(int lengthInCentimeters, String name, CarColor color) {
         this.lengthInCentimeters = lengthInCentimeters;
         this.name = name;
         this.color = color;
-        this.context = context;
     }
 
-    public PublicCarState(int primaryKey, int lengthInCentimeters, String name, CarColor color, Context context) {
-        this(lengthInCentimeters, name, color, context);
+    public PublicCarState(int primaryKey, int lengthInCentimeters, String name, CarColor color) {
+        this(lengthInCentimeters, name, color);
         this.primaryKey = primaryKey;
     }
 
@@ -66,7 +63,7 @@ public class PublicCarState {
     /**
      * Encapsulates the car state and adds behaviour that is meaningful in the Car context.
      */
-    public Car asCar() {
+    public Car asCar(Context context) {
         return new Car(carState(), context);
     }
 
