@@ -93,17 +93,17 @@ public class Main {
 
         // 1. Role = DEFAULT, SystemVersion = BASIC
         Car renault = carFactory.create(416, "Renault", BLUE).asCar(context);
-        System.out.println("renault: " + renault);
+        System.out.println("1. renault: " + renault);
 
         // 2. Role = RESTRICTED, SystemVersion = BASIC
         User restrictedUser = new User(Role.RESTRICTED);
         Context newContext = context.as(restrictedUser);
         Car renaultInNewContext1 = carFactory.create(416, "Renault", BLUE).asCar(newContext);
-        System.out.println("renaultInNewContext1: " + renaultInNewContext1);
+        System.out.println("2, renaultInNewContext1: " + renaultInNewContext1);
 
         // 3. Role = RESTRICTED, SystemVersion = ENTERPRISE
         Car renaultInNewContext2 = carFactory.create(416, "Renault", BLUE).asCar(newContext.in(SystemVersion.ENTERPRISE));
-        System.out.println("renaultInNewContext2: " + renaultInNewContext2);
+        System.out.println("3, renaultInNewContext2: " + renaultInNewContext2);
 
         example("--------");
 
