@@ -106,10 +106,6 @@ public class Main {
 
         example("--------");
 
-        CarState state = new CarState(300, "Kalle", CarColor.BLACK);
-        state.isValid();
-        Car car = new Car(state, context);
-
         CarSwitchers carSwitchers = carRepository.findBy("color=BLUE");
         System.out.println("carStates.isValid(): " + carSwitchers.isValid());
         System.out.println("carStates.asCarsInDb(): " + carSwitchers.asCarsInDb());
