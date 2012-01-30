@@ -5,7 +5,7 @@ import nu.tengstrand.contextswitcher.version2.car.persistence.CarStateRepository
 public class CarRepository {
     private CarStateRepository repository = new CarStateRepository();
 
-    public CarSwitchers findBy(String criteria) {
-        return new CarSwitchers(repository.findBy(criteria));
+    public CarDressers findBy(String criteria) {
+        return new CarDressers(repository.findBy(criteria));
     }
 }
