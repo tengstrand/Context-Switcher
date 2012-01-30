@@ -1,9 +1,7 @@
 package nu.tengstrand.contextswitcher.version2.car;
 
-import nu.tengstrand.contextswitcher.version2.car.state.PublicCarState;
-
 /**
- * Represents the car state as strings.
+ * Represents a car state as strings.
  */
 public class CarStateAsStrings {
     public String lengthInCentimeters;
@@ -16,8 +14,13 @@ public class CarStateAsStrings {
         this.color = color;
     }
 
-    public PublicCarState asPublicCarState() {
-        return asCarState();
+    /**
+     * @return converts the string based format
+     */
+    public CarState asCarState() {
+        int length = Integer.parseInt(lengthInCentimeters);
+        CarColor color = CarColor.valueOf(this.color);
+        return new CarState(length, name, color);
     }
 
     public boolean isValid() {
@@ -26,14 +29,5 @@ public class CarStateAsStrings {
         } catch (Exception e) {
             return false;
         }
-    }
-
-    /**
-     * @return converts the string based format
-     */
-    private PublicCarState asCarState() {
-        int length = Integer.parseInt(lengthInCentimeters);
-        CarColor color = CarColor.valueOf(this.color);
-        return new PublicCarState(length, name, color);
     }
 }

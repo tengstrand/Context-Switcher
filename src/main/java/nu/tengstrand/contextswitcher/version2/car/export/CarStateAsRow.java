@@ -1,6 +1,7 @@
 package nu.tengstrand.contextswitcher.version2.car.export;
 
 import nu.tengstrand.contextswitcher.version2.car.CarStateAsStrings;
+import nu.tengstrand.contextswitcher.version2.car.CarSwitcher;
 import nu.tengstrand.contextswitcher.version2.car.business.Car;
 import nu.tengstrand.contextswitcher.version2.car.context.Context;
 
@@ -31,7 +32,7 @@ public class CarStateAsRow {
      * Encapsulates the car state and adds behaviour that is meaningful in the Car context.
      */
     public Car asCar(Context context) {
-        return asStrings().asPublicCarState().asCar(context);
+        return new Car(asStrings().asCarState(), context);
     }
 
     /**

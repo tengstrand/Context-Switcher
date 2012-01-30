@@ -1,6 +1,6 @@
 package nu.tengstrand.contextswitcher.version2.car.export;
 
-import nu.tengstrand.contextswitcher.version2.car.state.CarState;
+import nu.tengstrand.contextswitcher.version2.car.CarState;
 
 import java.io.PrintStream;
 

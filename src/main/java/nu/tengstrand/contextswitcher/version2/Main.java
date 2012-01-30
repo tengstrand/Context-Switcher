@@ -1,15 +1,14 @@
 package nu.tengstrand.contextswitcher.version2;
 
-import nu.tengstrand.contextswitcher.version2.car.CarFactory;
+import nu.tengstrand.contextswitcher.version2.car.*;
 import nu.tengstrand.contextswitcher.version2.car.business.Car;
-import nu.tengstrand.contextswitcher.version2.car.context.*;
+import nu.tengstrand.contextswitcher.version2.car.context.Context;
+import nu.tengstrand.contextswitcher.version2.car.context.Role;
 import nu.tengstrand.contextswitcher.version2.car.context.SystemVersion;
+import nu.tengstrand.contextswitcher.version2.car.context.User;
 import nu.tengstrand.contextswitcher.version2.car.export.CarStateAsRow;
 import nu.tengstrand.contextswitcher.version2.car.persistence.CarInDb;
-import nu.tengstrand.contextswitcher.version2.car.persistence.CarRepository;
 import nu.tengstrand.contextswitcher.version2.car.persistence.Database;
-import nu.tengstrand.contextswitcher.version2.car.state.PublicCarState;
-import nu.tengstrand.contextswitcher.version2.car.state.PublicCarStates;
 
 import java.io.PrintStream;
 
@@ -65,9 +64,9 @@ public class Main {
 
         // Example 2b - fix invalid state.
         example("2b");
-        PublicCarState saabState = carFactory.create(50, "Saab", GREEN);
+        CarSwitcher saabState = carFactory.create(50, "Saab", GREEN);
         System.out.println("saabState.isValid(): " + saabState.isValid());
-        saabState.lengthInCentimeters = 350;
+        saabState.state.lengthInCentimeters = 350;
         System.out.println("saabState.isValid(): " + saabState.isValid());
         Car saab = saabState.asCar(context);
         System.out.println("saab: " + saab);
@@ -107,18 +106,19 @@ public class Main {
 
         example("--------");
 
+        CarState state = new CarState(300, "Kalle", CarColor.BLACK);
+        state.isValid();
+        Car car = new Car(state, context);
 
-
-
-        PublicCarStates carStates = carRepository.findBy("color=BLUE");
-        System.out.println("carStates.isValid(): " + carStates.isValid());
-        System.out.println("carStates.asCarsInDb(): " + carStates.asCarsInDb());
+        CarSwitchers carSwitchers = carRepository.findBy("color=BLUE");
+        System.out.println("carStates.isValid(): " + carSwitchers.isValid());
+        System.out.println("carStates.asCarsInDb(): " + carSwitchers.asCarsInDb());
 
         // Saves a car to database + export to file
-        PublicCarState publicCarState = carFactory.create(424, "Porsche", BLACK);
-        publicCarState.asCarInDb().save(database);
+        CarInDb carInDb = carFactory.create(424, "Porsche", BLACK).asCarInDb();
+        carInDb.save(database);
         PrintStream output = System.out; // Faking output to file
-        publicCarState.asCarAsRow().export(output);
+        carInDb.asCarAsRow().export(output);
     }
 
     private static void example(String example) {

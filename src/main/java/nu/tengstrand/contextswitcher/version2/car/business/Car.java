@@ -1,8 +1,8 @@
 package nu.tengstrand.contextswitcher.version2.car.business;
 
+import nu.tengstrand.contextswitcher.version2.car.CarState;
 import nu.tengstrand.contextswitcher.version2.car.context.Context;
 import nu.tengstrand.contextswitcher.version2.car.persistence.CarInDb;
-import nu.tengstrand.contextswitcher.version2.car.state.CarState;
 
 public class Car {
     private final CarState state;
@@ -10,7 +10,8 @@ public class Car {
     private final SystemInfo systemInfo;
 
     public Car(CarState carState, Context context) {
-        state = carState;
+        // Make sure the state is valid and that we have no references to the outside world!
+        state = carState.validCopy();
         attributes = context.hasRightsToReadColor() ? state : new RestrictedAttributes(state);
         systemInfo = new SystemInfo(context.systemVersion);
     }

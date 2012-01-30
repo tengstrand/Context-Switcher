@@ -1,44 +1,40 @@
-package nu.tengstrand.contextswitcher.version2.car.state;
-
-import nu.tengstrand.contextswitcher.version2.car.CarColor;
-import nu.tengstrand.contextswitcher.version2.car.context.Context;
+package nu.tengstrand.contextswitcher.version2.car;
 
 /**
- * Represents the immutable state of all different representations of the concept Car.
  * This is just a data carrier so we don't need (and don't want) to add getters and setters!
- *
- * The strategy to ensure valid state is to set the attributes to final.
- * The exception is "primaryKey" that is not part of the state and should not be part
- * of the implementations of equals(), hashCode() and toString().
- *
- * The CarInDb is the only representation that need to take primaryKey into account,
- * and as a logical consequence had to override the implementations of equals(),
- * hashCode() and toString().
  */
 public class CarState {
-    // The primary need to be put here so we don't lose track of it when switching context.
+    // The primary need to be put here so we don't lose track of it when switching task.
     public Integer primaryKey;
 
-    // Our immutable attributes that represents the state
-    // A state object, like this CarState, does not have to be immutable,
-    // the important thing is that we can ensure that always is valid!
-    // To set them as final is an effective way to ensure that.
-    public final int lengthInCentimeters;
-    public final String name;
-    public final CarColor color;
+    public int lengthInCentimeters;
+    public String name;
+    public CarColor color;
 
     /**
-     * Make sure this constructor is package-private!
+     * Any mutable incoming parameters need to be cloned to guarantee that
+     * they can not be modified from the outside of this class!
      */
-    CarState(int lengthInCentimeters, String name, CarColor color) {
+    public CarState(int lengthInCentimeters, String name, CarColor color) {
         this.lengthInCentimeters = lengthInCentimeters;
         this.name = name;
         this.color = color;
     }
 
-    CarState(int primaryKey, int lengthInCentimeters, String name, CarColor color) {
+    public CarState(Integer primaryKey, int lengthInCentimeters, String name, CarColor color) {
         this(lengthInCentimeters, name, color);
         this.primaryKey = primaryKey;
+    }
+
+    /**
+     * If any of the instance variables are mutable, they need to be copied
+     * and a new instance of CarState should be returned.
+     */
+    public CarState validCopy() {
+        if (!isValid()) {
+            throw new IllegalStateException("Invalid car state");
+        }
+        return this;
     }
 
     public boolean isValid() {

@@ -1,6 +1,6 @@
 package nu.tengstrand.contextswitcher.version2.car.business;
 
-import nu.tengstrand.contextswitcher.version2.car.state.CarState;
+import nu.tengstrand.contextswitcher.version2.car.CarState;
 
 public class RestrictedAttributes {
     private final CarState state;

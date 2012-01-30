@@ -1,12 +1,10 @@
 package nu.tengstrand.contextswitcher.version2.car;
 
-import nu.tengstrand.contextswitcher.version2.car.state.PublicCarState;
-
 /**
  * This class make use of the pattern Chained Creator to improve the API
  * when creating an instance of PublicCarState.
  */
-public class PublicCarStateCreator {
+public class CarSwitcherCreator {
     private int lengthInCentimeters;
     private String name;
     private CarColor color;
@@ -15,27 +13,27 @@ public class PublicCarStateCreator {
      * Starting point of the constructor chain which ends with a PublicCarState.
      */
     public static LenghInCentimeter create() {
-        return new PublicCarStateCreator().new LenghInCentimeter();
+        return new CarSwitcherCreator().new LenghInCentimeter();
     }
 
     public class LenghInCentimeter {
         public Name lengthInCentimeters(int length) {
-            PublicCarStateCreator.this.lengthInCentimeters = length;
+            CarSwitcherCreator.this.lengthInCentimeters = length;
             return new Name();
         }
     }
 
     public class Name {
         public Color name(String name) {
-            PublicCarStateCreator.this.name = name;
+            CarSwitcherCreator.this.name = name;
             return new Color();
         }
     }
 
     public class Color {
-        public PublicCarState color(CarColor color) {
-            PublicCarStateCreator.this.color = color;
-            return new PublicCarState(lengthInCentimeters, name, color);
+        public CarSwitcher color(CarColor color) {
+            CarSwitcherCreator.this.color = color;
+            return new CarSwitcher(new CarState(lengthInCentimeters, name, color));
         }
     }
 }
