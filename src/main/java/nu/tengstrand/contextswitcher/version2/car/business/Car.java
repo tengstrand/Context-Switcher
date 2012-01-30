@@ -1,7 +1,8 @@
 package nu.tengstrand.contextswitcher.version2.car.business;
 
-import nu.tengstrand.contextswitcher.version2.car.CarState;
+import nu.tengstrand.contextswitcher.version2.car.state.CarState;
 import nu.tengstrand.contextswitcher.version2.car.context.Context;
+import nu.tengstrand.contextswitcher.version2.car.export.CarAsRow;
 import nu.tengstrand.contextswitcher.version2.car.persistence.CarInDb;
 
 public class Car {
@@ -11,13 +12,17 @@ public class Car {
 
     public Car(CarState carState, Context context) {
         // Make sure the state is valid and that we have no references to the outside world!
-        state = carState.validCopy();
+        state = carState.ensureValidState();
         attributes = context.hasRightsToReadColor() ? state : new RestrictedAttributes(state);
         systemInfo = new SystemInfo(context.systemVersion);
     }
 
     public CarInDb asCarInDb() {
         return new CarInDb(state);
+    }
+
+    public CarAsRow asCarAsRow() {
+        return new CarAsRow(state);
     }
 
     public boolean isBig() {

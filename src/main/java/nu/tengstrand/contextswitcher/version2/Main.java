@@ -2,6 +2,7 @@ package nu.tengstrand.contextswitcher.version2;
 
 import nu.tengstrand.contextswitcher.version2.car.*;
 import nu.tengstrand.contextswitcher.version2.car.business.Car;
+import nu.tengstrand.contextswitcher.version2.car.business.Cars;
 import nu.tengstrand.contextswitcher.version2.car.context.Context;
 import nu.tengstrand.contextswitcher.version2.car.context.Role;
 import nu.tengstrand.contextswitcher.version2.car.context.SystemVersion;
@@ -9,6 +10,7 @@ import nu.tengstrand.contextswitcher.version2.car.context.User;
 import nu.tengstrand.contextswitcher.version2.car.export.CarStateAsRow;
 import nu.tengstrand.contextswitcher.version2.car.persistence.CarInDb;
 import nu.tengstrand.contextswitcher.version2.car.persistence.Database;
+import nu.tengstrand.contextswitcher.version2.car.state.CarDresser;
 
 import java.io.PrintStream;
 
@@ -64,7 +66,7 @@ public class Main {
 
         // Example 2b - fix invalid state.
         example("2b");
-        CarSwitcher saabState = carFactory.create(50, "Saab", GREEN);
+        CarDresser saabState = carFactory.create(50, "Saab", GREEN);
         System.out.println("saabState.isValid(): " + saabState.isValid());
         saabState.state.lengthInCentimeters = 350;
         System.out.println("saabState.isValid(): " + saabState.isValid());
@@ -83,6 +85,14 @@ public class Main {
         volvoInDb.save(database);
         System.out.println("volvoInDb.isPersisted(): " + volvoInDb.isPersisted());
 
+        // Example 3b - Get rows from a database and store them in a file
+        example("3b");
+        Cars cars = carRepository.findBy("color=BLUE").asCars(context);
+        System.out.println("cars: " + cars);
+        System.out.println("carsAsRow: " + cars.asCarsAsRow());
+        PrintStream output = System.out; // Faking output to file
+        cars.asCarsAsRow().export(output);
+
         //---
         //--- 4. Context Oriented Programming (COP)
         //---
@@ -98,23 +108,11 @@ public class Main {
         User restrictedUser = new User(Role.RESTRICTED);
         Context newContext = context.as(restrictedUser);
         Car renaultInNewContext1 = carFactory.create(416, "Renault", BLUE).asCar(newContext);
-        System.out.println("2, renaultInNewContext1: " + renaultInNewContext1);
+        System.out.println("2. renaultInNewContext1: " + renaultInNewContext1);
 
         // 3. Role = RESTRICTED, SystemVersion = ENTERPRISE
         Car renaultInNewContext2 = carFactory.create(416, "Renault", BLUE).asCar(newContext.in(SystemVersion.ENTERPRISE));
-        System.out.println("3, renaultInNewContext2: " + renaultInNewContext2);
-
-        example("--------");
-
-        CarSwitchers carSwitchers = carRepository.findBy("color=BLUE");
-        System.out.println("carStates.isValid(): " + carSwitchers.isValid());
-        System.out.println("carStates.asCarsInDb(): " + carSwitchers.asCarsInDb());
-
-        // Saves a car to database + export to file
-        CarInDb carInDb = carFactory.create(424, "Porsche", BLACK).asCarInDb();
-        carInDb.save(database);
-        PrintStream output = System.out; // Faking output to file
-        carInDb.asCarAsRow().export(output);
+        System.out.println("3. renaultInNewContext2: " + renaultInNewContext2);
     }
 
     private static void example(String example) {

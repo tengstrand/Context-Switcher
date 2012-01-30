@@ -1,9 +1,9 @@
 package nu.tengstrand.contextswitcher.version2.car.export;
 
 import nu.tengstrand.contextswitcher.version2.car.CarStateAsStrings;
-import nu.tengstrand.contextswitcher.version2.car.CarSwitcher;
 import nu.tengstrand.contextswitcher.version2.car.business.Car;
 import nu.tengstrand.contextswitcher.version2.car.context.Context;
+import nu.tengstrand.contextswitcher.version2.car.state.CarDresser;
 
 /**
  * Responsible for converting a row in the format (e.g) "480,Volvo,RED"
@@ -32,7 +32,7 @@ public class CarStateAsRow {
      * Encapsulates the car state and adds behaviour that is meaningful in the Car context.
      */
     public Car asCar(Context context) {
-        return new Car(asStrings().asCarState(), context);
+        return new CarDresser(asStrings().asCarState()).asCar(context);
     }
 
     /**

@@ -1,20 +1,21 @@
-package nu.tengstrand.contextswitcher.version2.car;
+package nu.tengstrand.contextswitcher.version2.car.state;
+
+import nu.tengstrand.contextswitcher.version2.car.CarColor;
 
 /**
  * This is just a data carrier so we don't need (and don't want) to add getters and setters!
  */
 public class CarState {
-    // The primary need to be put here so we don't lose track of it when switching task.
+    // The primary need to be put here so we don't lose track of it when switching context/task.
     public Integer primaryKey;
 
     public int lengthInCentimeters;
     public String name;
     public CarColor color;
 
-    /**
-     * Any mutable incoming parameters need to be cloned to guarantee that
-     * they can not be modified from the outside of this class!
-     */
+    // true if encapsulated by CarSwitcher (to be part of Car and CarInDb).
+    private boolean isEncapsulated = false;
+
     public CarState(int lengthInCentimeters, String name, CarColor color) {
         this.lengthInCentimeters = lengthInCentimeters;
         this.name = name;
@@ -27,10 +28,23 @@ public class CarState {
     }
 
     /**
-     * If any of the instance variables are mutable, they need to be copied
-     * and a new instance of CarState should be returned.
+     * If we have any instance variables that can be mutated from outside this class,
+     * we need to return a copy of CarState. In this example we don't,
+     * so we can safely return 'this'.
+     *
+     * @return a new valid car state, marked as encapsulated.
      */
-    public CarState validCopy() {
+    CarState asValidEncapsulatedState() {
+        CarState state = new CarState(primaryKey, lengthInCentimeters, name, color);
+        state.isEncapsulated = true;
+
+        return state.ensureValidState();
+    }
+
+    public CarState ensureValidState() {
+        if (!isEncapsulated) {
+            throw new IllegalStateException("Encapsulattion can only be performed via a CarSwitcher.");
+        }
         if (!isValid()) {
             throw new IllegalStateException("Invalid car state");
         }

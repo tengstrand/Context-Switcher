@@ -1,5 +1,7 @@
 package nu.tengstrand.contextswitcher.version2.car;
 
+import nu.tengstrand.contextswitcher.version2.car.state.CarState;
+
 /**
  * Represents a car state as strings.
  */

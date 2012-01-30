@@ -1,6 +1,6 @@
 package nu.tengstrand.contextswitcher.version2.car.export;
 
-import nu.tengstrand.contextswitcher.version2.car.CarState;
+import nu.tengstrand.contextswitcher.version2.car.state.CarState;
 
 import java.io.PrintStream;
 
@@ -12,7 +12,7 @@ public class CarAsRow {
     }
 
     public void export(PrintStream output) {
-        output.print("Exported: " + carAsRow);
+        output.println("Exported: " + carAsRow);
     }
 
     @Override
@@ -29,6 +29,6 @@ public class CarAsRow {
 
     @Override
     public String toString() {
-        return "CarAsRow{" + carAsRow + '}';
+        return "CarAsRow{'" + carAsRow + "'}";
     }
 }

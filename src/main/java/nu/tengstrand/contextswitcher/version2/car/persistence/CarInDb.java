@@ -1,6 +1,6 @@
 package nu.tengstrand.contextswitcher.version2.car.persistence;
 
-import nu.tengstrand.contextswitcher.version2.car.CarState;
+import nu.tengstrand.contextswitcher.version2.car.state.CarState;
 import nu.tengstrand.contextswitcher.version2.car.export.CarAsRow;
 
 public class CarInDb {
@@ -8,7 +8,7 @@ public class CarInDb {
 
     public CarInDb(CarState carState) {
         // Make sure the state is valid and that we have no references to the outside world!
-        state = carState.validCopy();
+        state = carState.ensureValidState();
     }
 
     public boolean isPersisted() {
