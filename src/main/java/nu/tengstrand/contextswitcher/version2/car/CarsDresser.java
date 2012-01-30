@@ -15,10 +15,10 @@ import java.util.Set;
 /**
  * Used to choose representation for a list of public car states.
  */
-public class CarDressers {
+public class CarsDresser {
     private final CarStates states;
 
-    public CarDressers(CarStates states) {
+    public CarsDresser(CarStates states) {
         this.states = states;
     }
 
