@@ -24,10 +24,6 @@ public class CarInDb {
         return this;
     }
 
-    public CarAsRow asCarAsRow() {
-        return new CarAsRow(state);
-    }
-
     /**
      * Take the primary key into account when comparing objects.
      */

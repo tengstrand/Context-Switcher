@@ -31,8 +31,8 @@ public class CarStateAsRow {
     /**
      * Encapsulates the car state and adds behaviour that is meaningful in the Car context.
      */
-    public Car asCar(Context context) {
-        return new CarDresser(asStrings().asCarState()).asCar(context);
+    public CarDresser create() {
+        return new CarDresser(asStrings().asCarState());
     }
 
     /**

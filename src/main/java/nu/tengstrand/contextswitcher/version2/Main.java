@@ -60,7 +60,7 @@ public class Main {
 
         // Example 2a - check if the state is valid.
         example("2a");
-        CarStateAsRow fiatRow = carFactory.createFromRow("15,Fiat,WHITE");
+        CarDresser fiatRow = carFactory.createFromRow("15,Fiat,WHITE");
         System.out.println("fiatRow.isValid(): " + fiatRow.isValid());
         // Car importedFiat = fiatRow.asCar();  This will throw an IllegalStateException
 

@@ -10,8 +10,8 @@ public class CarFactory {
         return new CarDresser(new CarState(lengthInCentimeters, name, color));
     }
 
-    public CarStateAsRow createFromRow(String row) {
-        return new CarStateAsRow(row);
+    public CarDresser createFromRow(String row) {
+        return new CarStateAsRow(row).create();
     }
 
     public CarDresserCreator.LenghInCentimeter create() {

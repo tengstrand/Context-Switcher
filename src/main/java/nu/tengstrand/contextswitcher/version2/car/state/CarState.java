@@ -13,8 +13,8 @@ public class CarState {
     public String name;
     public CarColor color;
 
-    // true if encapsulated by CarSwitcher (to be part of Car and CarInDb).
-    private boolean isEncapsulated = false;
+    // true if encapsulated by CarSwitcher.
+    private boolean encapsulated = false;
 
     public CarState(int lengthInCentimeters, String name, CarColor color) {
         this.lengthInCentimeters = lengthInCentimeters;
@@ -29,21 +29,21 @@ public class CarState {
 
     /**
      * If we have any instance variables that can be mutated from outside this class,
-     * we need to return a copy of CarState. In this example we don't,
-     * so we can safely return 'this'.
+     * we need to return a copy of CarState. In this example all the instance variables
+     * are immutable so we don't need to clone them.
      *
      * @return a new valid car state, marked as encapsulated.
      */
     CarState asValidEncapsulatedState() {
         CarState state = new CarState(primaryKey, lengthInCentimeters, name, color);
-        state.isEncapsulated = true;
+        state.encapsulated = true;
 
         return state.ensureValidState();
     }
 
     public CarState ensureValidState() {
-        if (!isEncapsulated) {
-            throw new IllegalStateException("Encapsulattion can only be performed via a CarSwitcher.");
+        if (!encapsulated) {
+            throw new IllegalStateException("Encapsulation can only be performed by CarSwitcher");
         }
         if (!isValid()) {
             throw new IllegalStateException("Invalid car state");
