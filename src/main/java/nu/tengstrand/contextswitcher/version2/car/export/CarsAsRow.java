@@ -12,6 +12,9 @@ import java.util.List;
 public class CarsAsRow implements Iterable<CarAsRow> {
     private final List<CarAsRow> cars = new ArrayList<CarAsRow>();
 
+    /**
+     * Creates an empty list
+     */
     public CarsAsRow() {
     }
 

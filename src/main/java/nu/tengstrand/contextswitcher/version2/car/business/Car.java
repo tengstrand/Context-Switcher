@@ -17,16 +17,16 @@ public class Car {
         systemInfo = new SystemInfo(context.systemVersion);
     }
 
+    public boolean isBig() {
+        return state.lengthInCentimeters >= 400;
+    }
+
     public CarInDb asCarInDb() {
         return new CarInDb(state);
     }
 
     public CarAsRow asCarAsRow() {
         return new CarAsRow(state);
-    }
-
-    public boolean isBig() {
-        return state.lengthInCentimeters >= 400;
     }
 
     @Override
@@ -41,11 +41,6 @@ public class Car {
         return state.hashCode();
     }
 
-    /**
-     * The role "user" is not allowed to see
-     *
-     * @return
-     */
     @Override
     public String toString() {
         return systemInfo + "Car{" + attributes + '}';

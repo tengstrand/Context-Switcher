@@ -5,30 +5,30 @@ import nu.tengstrand.contextswitcher.version2.car.state.CarState;
 import java.io.PrintStream;
 
 public class CarAsRow {
-    private String carAsRow;
+    private String row;
 
     public CarAsRow(CarState state) {
-        carAsRow = state.lengthInCentimeters + "," + state.name + "," + state.color;
+        row = state.lengthInCentimeters + "," + state.name + "," + state.color;
     }
 
     public void export(PrintStream output) {
-        output.println("Exported: " + carAsRow);
+        output.println("Exported: " + row);
     }
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
 
-        return carAsRow.equals(o);
+        return row.equals(o);
     }
 
     @Override
     public int hashCode() {
-        return carAsRow.hashCode();
+        return row.hashCode();
     }
 
     @Override
     public String toString() {
-        return "CarAsRow{'" + carAsRow + "'}";
+        return "CarAsRow{'" + row + "'}";
     }
 }

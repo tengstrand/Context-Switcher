@@ -7,7 +7,8 @@ import nu.tengstrand.contextswitcher.version2.car.persistence.CarInDb;
 import nu.tengstrand.contextswitcher.version2.car.state.CarState;
 
 /**
- * This class is used to simplify creation of Car, CarInDb and CarAsRow.
+ * This class is used to change and validate car state and to
+ * encapsulate different representations of the concept car.
  */
 public class CarDresser {
     // This little trick will remove the need of getters of setters!

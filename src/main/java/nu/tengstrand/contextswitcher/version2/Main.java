@@ -1,13 +1,13 @@
 package nu.tengstrand.contextswitcher.version2;
 
-import nu.tengstrand.contextswitcher.version2.car.*;
+import nu.tengstrand.contextswitcher.version2.car.CarFactory;
+import nu.tengstrand.contextswitcher.version2.car.CarRepository;
 import nu.tengstrand.contextswitcher.version2.car.business.Car;
 import nu.tengstrand.contextswitcher.version2.car.business.Cars;
 import nu.tengstrand.contextswitcher.version2.car.context.Context;
 import nu.tengstrand.contextswitcher.version2.car.context.Role;
 import nu.tengstrand.contextswitcher.version2.car.context.SystemVersion;
 import nu.tengstrand.contextswitcher.version2.car.context.User;
-import nu.tengstrand.contextswitcher.version2.car.export.CarStateAsRow;
 import nu.tengstrand.contextswitcher.version2.car.persistence.CarInDb;
 import nu.tengstrand.contextswitcher.version2.car.persistence.Database;
 import nu.tengstrand.contextswitcher.version2.car.state.CarDresser;
@@ -51,7 +51,7 @@ public class Main {
 
         // Example 1c - build state from a comma separated row.
         example("1c");
-        Car fiat = carFactory.createFromRow("384,Fiat,WHITE").asCar(context);
+        Car fiat = carFactory.createFromRow("384,Fiat,RED").asCar(context);
         System.out.println("fiat: " + fiat);
 
         //---
@@ -66,11 +66,11 @@ public class Main {
 
         // Example 2b - fix invalid state.
         example("2b");
-        CarDresser saabState = carFactory.create(50, "Saab", GREEN);
-        System.out.println("saabState.isValid(): " + saabState.isValid());
-        saabState.state.lengthInCentimeters = 350;
-        System.out.println("saabState.isValid(): " + saabState.isValid());
-        Car saab = saabState.asCar(context);
+        CarDresser saabDresser = carFactory.create(50, "Saab", GREEN);
+        System.out.println("saabDresser.isValid(): " + saabDresser.isValid());
+        saabDresser.state.lengthInCentimeters = 350;
+        System.out.println("saabDresser.isValid(): " + saabDresser.isValid());
+        Car saab = saabDresser.asCar(context);
         System.out.println("saab: " + saab);
 
         //---
