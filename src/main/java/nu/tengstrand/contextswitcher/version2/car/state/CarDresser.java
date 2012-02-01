@@ -2,9 +2,8 @@ package nu.tengstrand.contextswitcher.version2.car.state;
 
 import nu.tengstrand.contextswitcher.version2.car.business.Car;
 import nu.tengstrand.contextswitcher.version2.car.context.Context;
-import nu.tengstrand.contextswitcher.version2.car.export.CarAsRow;
+import nu.tengstrand.contextswitcher.version2.car.exportimport.CarAsRow;
 import nu.tengstrand.contextswitcher.version2.car.persistence.CarInDb;
-import nu.tengstrand.contextswitcher.version2.car.state.CarState;
 
 /**
  * This class is used to change and validate car state and to

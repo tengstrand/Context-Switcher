@@ -2,7 +2,7 @@ package nu.tengstrand.contextswitcher.version2.car.business;
 
 import nu.tengstrand.contextswitcher.version2.car.state.CarState;
 import nu.tengstrand.contextswitcher.version2.car.context.Context;
-import nu.tengstrand.contextswitcher.version2.car.export.CarAsRow;
+import nu.tengstrand.contextswitcher.version2.car.exportimport.CarAsRow;
 import nu.tengstrand.contextswitcher.version2.car.persistence.CarInDb;
 
 public class Car {

@@ -3,7 +3,7 @@ package nu.tengstrand.contextswitcher.version2.car.business;
 import nu.tengstrand.contextswitcher.version2.car.state.CarState;
 import nu.tengstrand.contextswitcher.version2.car.CarStates;
 import nu.tengstrand.contextswitcher.version2.car.context.Context;
-import nu.tengstrand.contextswitcher.version2.car.export.CarsAsRow;
+import nu.tengstrand.contextswitcher.version2.car.exportimport.CarsAsRow;
 import nu.tengstrand.contextswitcher.version2.car.state.CarDresser;
 
 import java.util.ArrayList;

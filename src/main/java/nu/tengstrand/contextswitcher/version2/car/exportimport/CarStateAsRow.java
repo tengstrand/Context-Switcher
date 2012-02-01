@@ -1,8 +1,6 @@
-package nu.tengstrand.contextswitcher.version2.car.export;
+package nu.tengstrand.contextswitcher.version2.car.exportimport;
 
 import nu.tengstrand.contextswitcher.version2.car.CarStateAsStrings;
-import nu.tengstrand.contextswitcher.version2.car.business.Car;
-import nu.tengstrand.contextswitcher.version2.car.context.Context;
 import nu.tengstrand.contextswitcher.version2.car.state.CarDresser;
 
 /**
