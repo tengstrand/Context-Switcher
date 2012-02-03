@@ -10,7 +10,7 @@ import nu.tengstrand.contextswitcher.version2.car.context.SystemVersion;
 import nu.tengstrand.contextswitcher.version2.car.context.User;
 import nu.tengstrand.contextswitcher.version2.car.persistence.CarInDb;
 import nu.tengstrand.contextswitcher.version2.car.persistence.Database;
-import nu.tengstrand.contextswitcher.version2.car.state.CarDresser;
+import nu.tengstrand.contextswitcher.version2.car.state.CarCreator;
 
 import java.io.PrintStream;
 
@@ -41,7 +41,7 @@ public class Main {
         Car volvo = carFactory.create(480, "Volvo", RED).asCar(context);
         System.out.println("volvo.isBig(): " + volvo.isBig());
 
-        // Example 1b - build state by using the the pattern ChainedCreator.
+        // Example 1b - build state by using the the pattern Chained Creator.
         example("1b");
         CarInDb lamborghini = carFactory.create()
                 .lengthInCentimeters(479)
@@ -60,17 +60,17 @@ public class Main {
 
         // Example 2a - check if the state is valid.
         example("2a");
-        CarDresser fiatRow = carFactory.createFromRow("15,Fiat,WHITE");
+        CarCreator fiatRow = carFactory.createFromRow("15,Fiat,WHITE");
         System.out.println("fiatRow.isValid(): " + fiatRow.isValid());
         // Car importedFiat = fiatRow.asCar();  This will throw an IllegalStateException
 
         // Example 2b - fix invalid state.
         example("2b");
-        CarDresser saabDresser = carFactory.create(50, "Saab", GREEN);
-        System.out.println("saabDresser.isValid(): " + saabDresser.isValid());
-        saabDresser.state.lengthInCentimeters = 350;
-        System.out.println("saabDresser.isValid(): " + saabDresser.isValid());
-        Car saab = saabDresser.asCar(context);
+        CarCreator saabCreator = carFactory.create(50, "Saab", GREEN);
+        System.out.println("saabDresser.isValid(): " + saabCreator.isValid());
+        saabCreator.state.lengthInCentimeters = 350;
+        System.out.println("saabDresser.isValid(): " + saabCreator.isValid());
+        Car saab = saabCreator.asCar(context);
         System.out.println("saab: " + saab);
 
         //---

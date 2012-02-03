@@ -2,7 +2,7 @@ package nu.tengstrand.contextswitcher.version2.car.persistence;
 
 import nu.tengstrand.contextswitcher.version2.car.state.CarState;
 import nu.tengstrand.contextswitcher.version2.car.CarStates;
-import nu.tengstrand.contextswitcher.version2.car.state.CarDresser;
+import nu.tengstrand.contextswitcher.version2.car.state.CarCreator;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -13,7 +13,7 @@ public class CarsInDb implements Iterable<CarInDb> {
 
     public CarsInDb(CarStates states) {
         for (CarState state : states) {
-            cars.add(new CarDresser(state).asCarInDb());
+            cars.add(new CarCreator(state).asCarInDb());
         }
     }
 

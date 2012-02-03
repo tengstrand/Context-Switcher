@@ -8,10 +8,10 @@ import nu.tengstrand.contextswitcher.version2.car.persistence.CarsInDb;
 /**
  * Used to choose representation for a list of public car states.
  */
-public class CarsDresser {
+public class CarsCreator {
     private final CarStates states;
 
-    public CarsDresser(CarStates states) {
+    public CarsCreator(CarStates states) {
         this.states = states;
     }
 

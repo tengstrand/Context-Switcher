@@ -43,7 +43,7 @@ public class CarState {
 
     public CarState ensureValidState() {
         if (!encapsulated) {
-            throw new IllegalStateException("Encapsulation can only be performed by CarDresser");
+            throw new IllegalStateException("Encapsulation can only be performed by CarCreator");
         }
         if (!isValid()) {
             throw new IllegalStateException("Invalid car state");

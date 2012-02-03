@@ -2,7 +2,7 @@ package nu.tengstrand.contextswitcher.version2.car.exportimport;
 
 import nu.tengstrand.contextswitcher.version2.car.state.CarState;
 import nu.tengstrand.contextswitcher.version2.car.CarStates;
-import nu.tengstrand.contextswitcher.version2.car.state.CarDresser;
+import nu.tengstrand.contextswitcher.version2.car.state.CarCreator;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ public class CarsAsRow implements Iterable<CarAsRow> {
 
     public CarsAsRow(CarStates states) {
         for (CarState state : states) {
-            cars.add(new CarDresser(state).asCarAsRow());
+            cars.add(new CarCreator(state).asCarAsRow());
         }
     }
 
