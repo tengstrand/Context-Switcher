@@ -10,8 +10,15 @@ public class Car {
     private final Object attributes;
     private final SystemInfo systemInfo;
 
+    /**
+     * This class makes use of a context object.
+     * Take a look at CarInDb if you want to study a simpler case.
+     *
+     * @param carState the internal state which should be valid and ready to encapsulate
+     * @param context the context of the caller
+     */
     public Car(CarState carState, Context context) {
-        // Make sure the state is valid and that we have no references to the outside world!
+        // Make sure that we have a valid and encapsulated state object.
         state = carState.ensureValidState();
         attributes = context.hasRightsToReadColor() ? state : new RestrictedAttributes(state);
         systemInfo = new SystemInfo(context.systemVersion);
