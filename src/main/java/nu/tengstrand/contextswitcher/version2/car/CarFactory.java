@@ -17,6 +17,10 @@ public class CarFactory {
         return new CarStateAsRow(row).create();
     }
 
+    public CarStateBuilder build() {
+        return new CarStateBuilder();
+    }
+
     public CarStateCreator.LenghInCentimeter create() {
         return new CarStateCreator().new LenghInCentimeter();
     }

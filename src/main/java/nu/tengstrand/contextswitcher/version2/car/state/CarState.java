@@ -16,6 +16,9 @@ public class CarState {
     // true if encapsulated by CarSwitcher.
     private boolean encapsulated = false;
 
+    public CarState() {
+    }
+
     public CarState(int lengthInCentimeters, String name, CarColor color) {
         this.lengthInCentimeters = lengthInCentimeters;
         this.name = name;

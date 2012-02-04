@@ -13,7 +13,7 @@ public class Context {
         this.user = user;
     }
 
-    public boolean hasRightsToReadColor() {
+        public boolean hasRightsToReadColor() {
         return user.getRole() != Role.RESTRICTED;
     }
 
@@ -21,7 +21,7 @@ public class Context {
         return new Context(systemVersion, user);
     }
 
-    public Context in(SystemVersion systemVersion) {
+    public Context as(SystemVersion systemVersion) {
         return new Context(systemVersion, user);
     }
 }

@@ -1,5 +1,6 @@
 package nu.tengstrand.contextswitcher.version2;
 
+import nu.tengstrand.contextswitcher.version2.car.CarColor;
 import nu.tengstrand.contextswitcher.version2.car.CarFactory;
 import nu.tengstrand.contextswitcher.version2.car.CarRepository;
 import nu.tengstrand.contextswitcher.version2.car.business.Car;
@@ -8,6 +9,7 @@ import nu.tengstrand.contextswitcher.version2.car.context.Context;
 import nu.tengstrand.contextswitcher.version2.car.context.Role;
 import nu.tengstrand.contextswitcher.version2.car.context.SystemVersion;
 import nu.tengstrand.contextswitcher.version2.car.context.User;
+import nu.tengstrand.contextswitcher.version2.car.exportimport.CarAsRow;
 import nu.tengstrand.contextswitcher.version2.car.persistence.CarInDb;
 import nu.tengstrand.contextswitcher.version2.car.persistence.Database;
 import nu.tengstrand.contextswitcher.version2.car.state.CarCreator;
@@ -41,7 +43,7 @@ public class Main {
         Car volvo = carFactory.create(480, "Volvo", RED).asCar(context);
         System.out.println("volvo.isBig(): " + volvo.isBig());
 
-        // Example 1b - build state by using the the pattern Chained Creator.
+        // Example 1b - build state by using a Chained Creator.
         example("1b");
         CarInDb lamborghini = carFactory.create()
                 .lengthInCentimeters(479)
@@ -49,8 +51,16 @@ public class Main {
                 .color(RED).asCarInDb();
         System.out.println("lamborghini.isPersisted(): " + lamborghini.isPersisted());
 
-        // Example 1c - build state from a comma separated row.
+        // Example 1c - build state by using a Builder.
         example("1c");
+        CarAsRow porsche = carFactory.build()
+                .withLengthInCentimeters(445)
+                .withName("Porsche")
+                .withColor(CarColor.BLACK).as().carAsRow();
+        System.out.println("porche: " + porsche);
+
+        // Example 1d - build state from a comma separated row.
+        example("1d");
         Car fiat = carFactory.createFromRow("384,Fiat,RED").asCar(context);
         System.out.println("fiat: " + fiat);
 
@@ -111,7 +121,7 @@ public class Main {
         System.out.println("2. renaultInNewContext1: " + renaultInNewContext1);
 
         // 3. Role = RESTRICTED, SystemVersion = ENTERPRISE
-        Car renaultInNewContext2 = carFactory.create(416, "Renault", BLUE).asCar(newContext.in(SystemVersion.ENTERPRISE));
+        Car renaultInNewContext2 = carFactory.create(416, "Renault", BLUE).asCar(newContext.as(SystemVersion.ENTERPRISE));
         System.out.println("3. renaultInNewContext2: " + renaultInNewContext2);
     }
 
