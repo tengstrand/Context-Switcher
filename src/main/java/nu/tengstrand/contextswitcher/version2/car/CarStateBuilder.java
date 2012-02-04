@@ -26,6 +26,10 @@ public class CarStateBuilder {
         return this;
     }
 
+    public boolean isValid() {
+        return state.isValid();
+    }
+
     public Creator as() {
         return creator;
     }

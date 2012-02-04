@@ -3,6 +3,7 @@ package nu.tengstrand.contextswitcher.version2;
 import nu.tengstrand.contextswitcher.version2.car.CarColor;
 import nu.tengstrand.contextswitcher.version2.car.CarFactory;
 import nu.tengstrand.contextswitcher.version2.car.CarRepository;
+import nu.tengstrand.contextswitcher.version2.car.CarStateBuilder;
 import nu.tengstrand.contextswitcher.version2.car.business.Car;
 import nu.tengstrand.contextswitcher.version2.car.business.Cars;
 import nu.tengstrand.contextswitcher.version2.car.context.Context;
@@ -76,11 +77,11 @@ public class Main {
 
         // Example 2b - fix invalid state.
         example("2b");
-        CarCreator saabCreator = carFactory.create(50, "Saab", GREEN);
-        System.out.println("saabDresser.isValid(): " + saabCreator.isValid());
-        saabCreator.state.lengthInCentimeters = 350;
-        System.out.println("saabDresser.isValid(): " + saabCreator.isValid());
-        Car saab = saabCreator.asCar(context);
+        CarStateBuilder saabBuilder = carFactory.build().withName("Saab").withColor(GREEN);
+        System.out.println("saabBuilder.isValid(): " + saabBuilder.isValid());
+        saabBuilder.withLengthInCentimeters(350);
+        System.out.println("saabBuilder.isValid(): " + saabBuilder.isValid());
+        Car saab = saabBuilder.as().car(context);
         System.out.println("saab: " + saab);
 
         //---
